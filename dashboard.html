@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial;
+        overflow: hidden;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 1s ease;
+      }
+
+      h1 {
+        font-size: 26px;
+        margin-bottom: 10px;
+        color: #4ade80;
+      }
+
+      p {
+        opacity: 0.8;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #ef4444;
+        color: white;
+        cursor: pointer;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* 🎉 konfetti */
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: red;
+        animation: fall 3s linear infinite;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h1>🎉 Tizimga muvaffaqiyatli kirdingiz!</h1>
+      <p>Xush kelibsiz dashboardga</p>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        window.location.href = "index.html";
+      }
+
+      function logout() {
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      }
+
+      // 🎉 konfetti generator
+      function createConfetti() {
+        for (let i = 0; i < 60; i++) {
+          const confetti = document.createElement("div");
+          confetti.classList.add("confetti");
+
+          confetti.style.left = Math.random() * 100 + "vw";
+          confetti.style.background = randomColor();
+          confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+          document.body.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 5000);
+        }
+      }
+
+      function randomColor() {
+        const colors = ["#f87171", "#60a5fa", "#facc15", "#4ade80", "#c084fc"];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      // sahifa ochilganda mushak otiladi 🎆
+      createConfetti();
+    </script>
+  </body>
+</html>
