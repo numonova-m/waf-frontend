@@ -2,120 +2,257 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Dashboard</title>
 
     <style>
-      body {
+      * {
         margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
         height: 100vh;
-        background: linear-gradient(135deg, #0f172a, #1e293b);
+        overflow: hidden;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(-45deg, #0f172a, #111827, #1e293b, #020617);
+        background-size: 400% 400%;
+        animation: gradientBG 12s ease infinite;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: Arial;
-        overflow: hidden;
+        position: relative;
       }
 
-      .card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        padding: 40px;
-        border-radius: 20px;
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* glowing circles */
+      .blur {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        z-index: 0;
+      }
+
+      .blur1 {
+        width: 300px;
+        height: 300px;
+        background: rgba(34, 197, 94, 0.3);
+        top: -100px;
+        left: -100px;
+      }
+
+      .blur2 {
+        width: 250px;
+        height: 250px;
+        background: rgba(59, 130, 246, 0.3);
+        bottom: -100px;
+        right: -100px;
+      }
+
+      .dashboard {
+        width: 430px;
+        padding: 45px;
+        border-radius: 30px;
+        position: relative;
+        z-index: 1;
+
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+          inset 0 0 30px rgba(255, 255, 255, 0.03);
+
         text-align: center;
-        color: white;
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-        animation: fadeIn 1s ease;
+
+        animation: show 1s ease;
+      }
+
+      @keyframes show {
+        from {
+          opacity: 0;
+          transform: translateY(50px) scale(0.9);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .icon {
+        font-size: 70px;
+        margin-bottom: 20px;
+        animation: float 3s ease infinite;
+      }
+
+      @keyframes float {
+        50% {
+          transform: translateY(-8px);
+        }
       }
 
       h1 {
-        font-size: 26px;
+        color: white;
+        font-size: 32px;
         margin-bottom: 10px;
+      }
+
+      .success {
         color: #4ade80;
       }
 
       p {
-        opacity: 0.8;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 10px;
+        font-size: 15px;
+      }
+
+      .info-box {
+        margin-top: 30px;
+        padding: 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .info-box h3 {
+        color: white;
+        margin-bottom: 10px;
+      }
+
+      .info-box span {
+        color: #4ade80;
       }
 
       button {
-        margin-top: 20px;
-        padding: 10px 20px;
+        width: 100%;
+        margin-top: 30px;
+        padding: 15px;
         border: none;
-        border-radius: 10px;
-        background: #ef4444;
+        border-radius: 16px;
+
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+
         color: white;
+        font-size: 16px;
+        font-weight: bold;
         cursor: pointer;
+
+        transition: 0.3s ease;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: scale(0.9);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
+      button:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
       }
 
-      /* 🎉 konfetti */
+      button:active {
+        transform: scale(0.98);
+      }
+
+      /* confetti */
       .confetti {
         position: absolute;
-        width: 10px;
-        height: 10px;
-        background: red;
-        animation: fall 3s linear infinite;
+        width: 12px;
+        height: 12px;
+        border-radius: 4px;
+        top: -20px;
+        animation: fall linear forwards;
       }
 
       @keyframes fall {
         to {
-          transform: translateY(100vh) rotate(360deg);
+          transform: translateY(110vh) rotate(720deg);
+          opacity: 0;
         }
       }
     </style>
   </head>
 
   <body>
-    <div class="card">
-      <h1>🎉 Tizimga muvaffaqiyatli kirdingiz!</h1>
-      <p>Xush kelibsiz dashboardga</p>
+    <div class="blur blur1"></div>
+    <div class="blur blur2"></div>
+
+    <div class="dashboard">
+      <div class="icon">🚀</div>
+
+      <h1>
+        <span class="success">Success!</span>
+      </h1>
+
+      <p>You have successfully logged into the system.</p>
+
+      <div class="info-box">
+        <h3>Dashboard Status</h3>
+        <p>Authentication: <span>Active</span></p>
+      </div>
+
       <button onclick="logout()">Logout</button>
     </div>
 
     <script>
+      // token check
       const token = localStorage.getItem("token");
 
       if (!token) {
         window.location.href = "index.html";
       }
 
+      // logout
       function logout() {
         localStorage.removeItem("token");
-        window.location.href = "index.html";
+
+        document.body.style.opacity = "0";
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 500);
       }
 
-      // 🎉 konfetti generator
+      // confetti effect
       function createConfetti() {
-        for (let i = 0; i < 60; i++) {
+        const colors = ["#4ade80", "#60a5fa", "#facc15", "#f472b6", "#c084fc"];
+
+        for (let i = 0; i < 80; i++) {
           const confetti = document.createElement("div");
+
           confetti.classList.add("confetti");
 
           confetti.style.left = Math.random() * 100 + "vw";
-          confetti.style.background = randomColor();
+
+          confetti.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+
           confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+          confetti.style.opacity = Math.random();
+
+          confetti.style.transform = "rotate(" + Math.random() * 360 + "deg)";
 
           document.body.appendChild(confetti);
 
-          setTimeout(() => confetti.remove(), 5000);
+          setTimeout(() => {
+            confetti.remove();
+          }, 5000);
         }
       }
 
-      function randomColor() {
-        const colors = ["#f87171", "#60a5fa", "#facc15", "#4ade80", "#c084fc"];
-        return colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      // sahifa ochilganda mushak otiladi 🎆
       createConfetti();
     </script>
   </body>
